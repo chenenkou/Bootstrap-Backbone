@@ -23,3 +23,11 @@ aBadge.view = new BadgeComponent.View({
     model: aBadge.model
 });
 aBadge.view.render();
+
+var aIcon = {};
+aIcon.model = new IconComponent.Model();
+aIcon.view = new IconComponent.View({
+    el: "#iconComponent",
+    model: aIcon.model
+});
+aIcon.view.render();

@@ -24,6 +24,16 @@ aBadge.view = new BadgeComponent.View({
 });
 aBadge.view.render();
 
+var aList = [
+    { content: 'Badges1', num: 10},
+    { content: 'Badges2', num: 20},
+    { content: 'Badges3'}
+];
+
+aBadge.collection = new BadgeComponent.Collection(aList, {model: BadgeComponent.Model});
+aBadge.listView = new BadgeComponent.ListView({el: "#badgesComponent", collection: aBadge.collection});
+aBadge.listView.render();
+
 var aIcon = {};
 aIcon.model = new IconComponent.Model();
 aIcon.view = new IconComponent.View({

@@ -12,7 +12,7 @@ BtnComponent.Model = Backbone.Model.extend({
 });
 
 BtnComponent.View = Backbone.View.extend({
-    initialize: function() {
+    initialize: function () {
         this.listenTo(this.model, 'change', this.render);
     },
 
@@ -22,7 +22,7 @@ BtnComponent.View = Backbone.View.extend({
         <button type="button" class="btn btn-<%= className %> <% if (size) {%>btn-<%= size %><% } %>"><%= content %></button>\
     '),
 
-    render: function() {
+    render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     }
@@ -42,7 +42,7 @@ LabComponent.Model = Backbone.Model.extend({
 });
 
 LabComponent.View = Backbone.View.extend({
-    initialize: function() {
+    initialize: function () {
         this.listenTo(this.model, 'change', this.render);
     },
 
@@ -52,7 +52,7 @@ LabComponent.View = Backbone.View.extend({
         <span class="label label-<%= className %>"><%= content %></span>\
     '),
 
-    render: function() {
+    render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     }
@@ -72,7 +72,7 @@ BadgeComponent.Model = Backbone.Model.extend({
 });
 
 BadgeComponent.View = Backbone.View.extend({
-    initialize: function() {
+    initialize: function () {
         this.listenTo(this.model, 'change', this.render);
     },
 
@@ -82,21 +82,21 @@ BadgeComponent.View = Backbone.View.extend({
         <a href="#"><%= content %> <% if (num) { %><span class="badge"><%= num %></span><% } %></a>\
     '),
 
-    render: function() {
+    render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     }
 });
 
 BadgeComponent.Collection = Backbone.Collection.extend({
-    getByCid: function(cid) {
+    getByCid: function (cid) {
         return this._byId[cid];
     }
 });
 
 BadgeComponent.ListView = Backbone.View.extend({
-    initialize: function() {
-        if ( this.collection ) {
+    initialize: function () {
+        if (this.collection) {
             this.byId = {};
             this.views = [];
             this.collection.each(this.registerView, this);
@@ -108,13 +108,13 @@ BadgeComponent.ListView = Backbone.View.extend({
         }
     },
 
-    registerView: function(model) {
+    registerView: function (model) {
         var view = new BadgeComponent.View({model: model, tagName: "li", className: "active"});
         this.byId[model.cid] = view;
         this.views.push(view);
     },
 
-    addView: function(model) {
+    addView: function (model) {
         var view = new BadgeComponent.View({model: model, tagName: "li", className: "active"});
         var at = this.collection.indexOf(model);
         this.byId[model.cid] = view;
@@ -123,7 +123,7 @@ BadgeComponent.ListView = Backbone.View.extend({
         this.views.splice(at, 0, view);
     },
 
-    removeView: function(model) {
+    removeView: function (model) {
         var view = this.byId[model.cid];
         delete this.byId[model.cid];
         view.remove();
@@ -131,22 +131,22 @@ BadgeComponent.ListView = Backbone.View.extend({
         this.views.splice(at, 1);
     },
 
-    resetView: function() {
+    resetView: function () {
         this.byId = {};
         this.views = [];
         this.collection.each(this.registerView, this);
         this.render();
     },
 
-    updateView: function(model) {
+    updateView: function (model) {
         var view = this.byId[model.cid];
         view.render();
     },
 
-    render: function() {
+    render: function () {
         var _this = this;
         _this.$el.empty();
-        _.each(this.views, function(view) {
+        _.each(this.views, function (view) {
             $_el = view.render().$el;
             _this.$el.append($_el);
         });
@@ -167,7 +167,7 @@ IconComponent.Model = Backbone.Model.extend({
 });
 
 IconComponent.View = Backbone.View.extend({
-    initialize: function() {
+    initialize: function () {
         this.listenTo(this.model, 'change', this.render);
     },
 
@@ -177,8 +177,76 @@ IconComponent.View = Backbone.View.extend({
         <span class="glyphicon glyphicon-<%= className %>" aria-hidden="true"></span>\
     '),
 
-    render: function() {
+    render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
+    }
+});
+
+/**
+ * Tables
+ */
+var TableComponent = {};
+
+TableComponent.Model = Backbone.Model.extend({
+    defaults: {
+        firstName: '',
+        lastName: '',
+        username: ''
+    }
+});
+
+TableComponent.View = Backbone.View.extend({
+    tagName: 'tr',
+
+    model: TableComponent.Model,
+
+    template: _.template('\
+        <td><%= id %></td>\
+        <td><%= firstName %></td>\
+        <td><%= lastName %></td>\
+        <td><%= username %></td>\
+    '),
+
+    initialize: function () {
+        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'destroy', this.remove);
+    },
+
+    render: function () {
+        this.$el.html(this.template(_.extend(this.model.toJSON(), {id: this.model.cid})));
+        return this;
+    },
+
+    remove: function () {
+        this.$el.remove();
+    }
+});
+
+TableComponent.Collection = Backbone.Collection.extend({
+    model: TableComponent.Model,
+
+    comparator: 'firstName' //让模型按照firstName的顺序排序
+});
+
+TableComponent.ListView = Backbone.View.extend({
+    initialize: function () {
+        this.listenTo(this.collection, 'add', this.addView);
+        this.listenTo(this.collection, 'reset', this.resetView);
+        this.listenTo(this.collection, 'sort', this.resetView);
+    },
+
+    render: function () {
+        this.collection.each(this.addView, this);
+    },
+
+    addView: function (model) {
+        var view = new TableComponent.View({model: model});
+        this.$el.append(view.render().$el);
+    },
+
+    resetView: function () {
+        this.$el.empty();
+        this.render();
     }
 });

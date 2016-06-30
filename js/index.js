@@ -24,13 +24,12 @@ aBadge.view = new BadgeComponent.View({
 });
 aBadge.view.render();
 
-var aList = [
-    { content: 'Badges1', num: 10},
-    { content: 'Badges2', num: 20},
-    { content: 'Badges3'}
+aBadge.aList = [
+    {content: 'Badges1', num: 10},
+    {content: 'Badges2', num: 20},
+    {content: 'Badges3'}
 ];
-
-aBadge.collection = new BadgeComponent.Collection(aList, {model: BadgeComponent.Model});
+aBadge.collection = new BadgeComponent.Collection(aBadge.aList, {model: BadgeComponent.Model});
 aBadge.listView = new BadgeComponent.ListView({el: "#badgesComponent", collection: aBadge.collection});
 aBadge.listView.render();
 
@@ -41,3 +40,14 @@ aIcon.view = new IconComponent.View({
     model: aIcon.model
 });
 aIcon.view.render();
+
+
+var aTable = {};
+aTable.list = [
+    {firstName: '周', lastName: '杰伦', username: 'Jay'},
+    {firstName: '蔡', lastName: '依林', username: 'Jolin'},
+    {firstName: '林', lastName: '俊杰', username: 'JJ Lin'}
+];
+aTable.collection = new TableComponent.Collection(aTable.list);
+aTable.listView = new TableComponent.ListView({el: '#tableComponent tbody', collection: aTable.collection});
+aTable.listView.render();

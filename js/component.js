@@ -206,11 +206,16 @@ TableComponent.View = Backbone.View.extend({
         <td><%= firstName %></td>\
         <td><%= lastName %></td>\
         <td><%= username %></td>\
+        <td><button class="btn btn-danger tr-del" type="button" data-id="<%= id %>">删除</button></td>\
     '),
 
     initialize: function () {
         this.listenTo(this.model, 'change', this.render);
         this.listenTo(this.model, 'destroy', this.remove);
+    },
+
+    events: {
+        'click .tr-del': 'doDel'
     },
 
     render: function () {
@@ -220,6 +225,13 @@ TableComponent.View = Backbone.View.extend({
 
     remove: function () {
         this.$el.remove();
+    },
+
+    doDel: function (e) {
+        $this = $(e.currentTarget);
+        var id = $this.data('id');
+
+        this.model.destroy();
     }
 });
 

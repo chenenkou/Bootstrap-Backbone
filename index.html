@@ -58,11 +58,32 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Username</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
+        </div>
+        <div class="col-md-6">
+            <form id="addTableForm">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" name="firstName" id="firstName">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" name="lastName" id="lastName">
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username" id="username"
+                           required="required"
+                           oninvalid="setCustomValidity('Username不能为空')"
+                           oninput="setCustomValidity('')">
+                </div>
+                <button type="submit" class="btn btn-primary">提交</button>
+            </form>
         </div>
     </div>
 
@@ -70,6 +91,7 @@
 </div>
 
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery.serializeJSON/2.7.2/jquery.serializejson.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="//cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
 <script src="//cdn.bootcss.com/backbone.js/1.1.2/backbone-min.js"></script>

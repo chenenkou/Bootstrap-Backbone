@@ -51,3 +51,11 @@ aTable.list = [
 aTable.collection = new TableComponent.Collection(aTable.list);
 aTable.listView = new TableComponent.ListView({el: '#tableComponent tbody', collection: aTable.collection});
 aTable.listView.render();
+$("#addTableForm").submit(function (e) {
+    e.preventDefault();
+
+    var data = $(this).serializeJSON();
+    aTable.collection.add(data, {sort: false});
+
+    $(this)[0].reset();
+});

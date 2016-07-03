@@ -59,3 +59,8 @@ $("#addTableForm").submit(function (e) {
 
     $(this)[0].reset();
 });
+
+
+var aDrop = {};
+aDrop.view = new DropComponent.View({el: '#dropComponent'});
+aDrop.view.render();

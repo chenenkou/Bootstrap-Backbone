@@ -1,8 +1,8 @@
 # Bootstrap-Backbone
 
-## 功能简介
+### 功能简介
 
-基于 Backbone 开发的 Bootstrap 组件库
+基于 Backbone 编写的 Bootstrap 组件库
 
 ### 构建工具
 

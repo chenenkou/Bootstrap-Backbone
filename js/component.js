@@ -3,7 +3,7 @@
 /**
  * X
  */
-define(function(require, exports, module) {
+define('X', [], function(require, exports, module) {
 
     module.exports = X;
 });

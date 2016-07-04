@@ -6,7 +6,7 @@ define(function (require, exports, module) {
 
     BtnComponent.Model = Backbone.Model.extend({
         defaults: {
-            content: "（默认样式）Default",
+            content: "按钮",
             className: "default",
             size: ""
         }

@@ -4,7 +4,8 @@ define('index', [
     'BadgeComponent',
     'IconComponent',
     'TableComponent',
-    'DropComponent'
+    'DropComponent',
+    'NavbarComponent'
 ], function (require, exports, module) {
     var BtnComponent = require('BtnComponent');
     var aBtn = {};
@@ -14,6 +15,16 @@ define('index', [
         model: aBtn.model
     });
     aBtn.view.render();
+
+    $(".btn-change-style").change(function () {
+        var style = $(this).val();
+        aBtn.model.set('className', style);
+    });
+
+    $(".btn-change-size").change(function () {
+        var size = $(this).val();
+        aBtn.model.set('size', size);
+    });
     ////////////////////////////////////////////////////////////
 
     var LabComponent = require('LabComponent');
@@ -89,6 +100,22 @@ define('index', [
     var aDrop = {};
     aDrop.view = new DropComponent.View({el: '#dropComponent'});
     aDrop.view.render();
+    //////////////////////////////////////////////////////////
+
+    var NavbarComponent = require('NavbarComponent');
+    var aNavbar = {};
+    aNavbar.view = new NavbarComponent.View({el: '#navbarComponent'});
+    aNavbar.view.render();
+
+    $(".navbar-change-style").click(function () {
+        var style = $(this).data("style");
+        aNavbar.view.model.set("navStyle", style);
+    });
+
+    $(".navbar-change-index").change(function () {
+        var index = $(this).val();
+        aNavbar.view.model.set("activeIndex", index);
+    });
     //////////////////////////////////////////////////////////
 
 });

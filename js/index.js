@@ -5,7 +5,8 @@ define('index', [
     'IconComponent',
     'TableComponent',
     'DropComponent',
-    'NavbarComponent'
+    'NavbarComponent',
+    'AlertComponent'
 ], function (require, exports, module) {
     var BtnComponent = require('BtnComponent');
     var aBtn = {};
@@ -115,6 +116,32 @@ define('index', [
     $(".navbar-change-index").change(function () {
         var index = $(this).val();
         aNavbar.view.model.set("activeIndex", index);
+    });
+    //////////////////////////////////////////////////////////
+
+    var AlertComponent = require('AlertComponent');
+    var aAlert = {};
+    aAlert.model = new AlertComponent.Model();
+    aAlert.view = new AlertComponent.View({el: '#alertComponent', model: aAlert.model});
+    aAlert.view.render();
+
+    $(".alert-change-style").change(function() {
+        var className = $(this).val();
+        aAlert.model.set('className', className);
+    });
+
+    $("#alert-change-close").click(function() {
+        if ($(this).prop("checked")) {
+            aAlert.model.set('dismissible', 1);
+        }else{
+            aAlert.model.set('dismissible', 0);
+        }
+    });
+
+    $("#alert-change-content").blur(function() {
+        var content = $(this).val();
+        aAlert.model.set('content', content);
+        $(this).val('');
     });
     //////////////////////////////////////////////////////////
 

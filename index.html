@@ -157,6 +157,36 @@
     </div>
     <!-- 导航条 end -->
 
+    <!-- alerts start -->
+    <div class="page-header">
+        <h1>Alerts</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-8">
+            <div id="alertComponent"></div>
+        </div>
+        <div class="col-md-6 col-sm-4">
+            <h5>替换内容</h5>
+            <input type="text" class="form-control" id="alert-change-content" />
+            <h5>切换样式</h5>
+            <div>
+                <select class="form-control alert-change-style" style="width: 100px;">
+                    <option value="success">成功</option>
+                    <option value="info">信息</option>
+                    <option value="warning">提示</option>
+                    <option value="danger">警告</option>
+                </select>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="alert-change-close" checked="checked" value="1">
+                    可否关闭
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- alerts end -->
+
 </div>
 
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>

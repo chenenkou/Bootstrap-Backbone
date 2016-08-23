@@ -1,7 +1,7 @@
 /**
  * 下拉菜单
  */
-define(function (require, exports, module) {
+define("DropComponent", ["text!tpl/DropComponentTpl.html"], function (require, exports, module) {
     var DropComponent = {};
 
     DropComponent.Model = Backbone.Model.extend({
@@ -24,23 +24,7 @@ define(function (require, exports, module) {
             this.listenTo(this.model, 'change', this.render);
         },
 
-        template: _.template('\
-        <div class="drop<%= dropMode %>">\
-            <button class="btn btn-default dropdown-toggle"\
-                    type="button" id="dropdownMenu_<%= id %>"\
-                    data-toggle="dropdown"\
-                    aria-haspopup="true"\
-                    aria-expanded="false">\
-                    <%= name %>\
-                <span class="caret"></span>\
-            </button>\
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu_<%= id %>">\
-                <% _.each( items, function ( item ) { %>\
-                <li><a href="<%= item.href %>"><%= item.value %></a></li>\
-                <% }) %>\
-            </ul>\
-        </div>\
-    '),
+        template: _.template(require("text!tpl/DropComponentTpl.html")),
 
         render: function () {
             this.$el.html(this.template(_.extend(this.model.toJSON(), {id: this.model.cid})));

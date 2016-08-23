@@ -1,7 +1,7 @@
 /**
  * Glyphicons 字体图标
  */
-define(function (require, exports, module) {
+define("IconComponent", ["text!tpl/IconComponentTpl.html"], function (require, exports, module) {
     var IconComponent = {};
 
     IconComponent.Model = Backbone.Model.extend({
@@ -17,9 +17,7 @@ define(function (require, exports, module) {
 
         model: IconComponent.Model,
 
-        template: _.template('\
-            <span class="glyphicon glyphicon-<%= className %>" aria-hidden="true"></span>\
-        '),
+        template: _.template(require("text!tpl/IconComponentTpl.html")),
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));

@@ -1,7 +1,7 @@
 /**
  * Buttons
  */
-define(function (require, exports, module) {
+define("BtnComponent", ["text!tpl/BtnComponentTpl.html"], function (require, exports, module) {
     var BtnComponent = {};
 
     BtnComponent.Model = Backbone.Model.extend({
@@ -19,11 +19,7 @@ define(function (require, exports, module) {
 
         model: BtnComponent.Model,
 
-        template: _.template('\
-            <button type="button"\
-                    class="btn btn-<%= className %> <% if (size) {%>btn-<%= size %><% } %>"><%= content %>\
-                    </button>\
-        '),
+        template: _.template(require("text!tpl/BtnComponentTpl.html")),
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));

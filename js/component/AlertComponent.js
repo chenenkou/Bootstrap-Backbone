@@ -1,7 +1,7 @@
 /**
  * Alert
  */
-define('AlertComponent', [], function(require, exports, module) {
+define('AlertComponent', ['text!tpl/AlertComponentTpl.html'], function(require, exports, module) {
     var AlertComponent = {};
 
     AlertComponent.Model = Backbone.Model.extend({
@@ -17,14 +17,7 @@ define('AlertComponent', [], function(require, exports, module) {
             this.listenTo(this.model, 'change', this.render);
         },
 
-        template: _.template('\
-        <div class="alert alert-<%= className %> <% if (dismissible) { %> alert-dismissible <% } %>" role="alert">\
-            <% if (dismissible) { %>\
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
-            <% } %>\
-            <%= content %>\
-        </div>\
-        '),
+        template: _.template(require('text!tpl/AlertComponentTpl.html')),
 
         model: new AlertComponent.Model,
 

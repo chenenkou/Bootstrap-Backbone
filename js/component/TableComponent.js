@@ -1,7 +1,7 @@
 /**
  * Tables
  */
-define(function (require, exports, module) {
+define("TableComponent", ["text!tpl/TableComponentTpl.html"], function (require, exports, module) {
     var TableComponent = {};
 
     TableComponent.Model = Backbone.Model.extend({
@@ -17,15 +17,7 @@ define(function (require, exports, module) {
 
         model: TableComponent.Model,
 
-        template: _.template('\
-            <td><%= id %></td>\
-            <td><%= firstName %></td>\
-            <td><%= lastName %></td>\
-            <td><%= username %></td>\
-            <td>\
-                <button class="btn btn-danger tr-del" type="button" data-id="<%= id %>">删除</button>\
-            </td>\
-        '),
+        template: _.template(require("text!tpl/TableComponentTpl.html")),
 
         initialize: function () {
             this.listenTo(this.model, 'change', this.render);

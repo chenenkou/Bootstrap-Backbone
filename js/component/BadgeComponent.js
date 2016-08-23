@@ -1,7 +1,7 @@
 /**
  * Badges
  */
-define(function (require, exports, module) {
+define("BadgeComponent", ["text!tpl/BadgeComponentTpl.html"], function (require, exports, module) {
     var BadgeComponent = {};
 
     BadgeComponent.Model = Backbone.Model.extend({
@@ -18,12 +18,7 @@ define(function (require, exports, module) {
 
         model: BadgeComponent.Model,
 
-        template: _.template('\
-            <a href="#">\
-                <%= content %> <% if (num) { %>\
-                <span class="badge"><%= num %></span><% } %>\
-            </a>\
-        '),
+        template: _.template(require("text!tpl/BadgeComponentTpl.html")),
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));

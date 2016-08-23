@@ -1,7 +1,7 @@
 /**
  * Labels
  */
-define(function (require, exports, module) {
+define("LabComponent", ["text!tpl/LabComponentTpl.html"], function (require, exports, module) {
     var LabComponent = {};
 
     LabComponent.Model = Backbone.Model.extend({
@@ -18,9 +18,7 @@ define(function (require, exports, module) {
 
         model: LabComponent.Model,
 
-        template: _.template('\
-        <span class="label label-<%= className %>"><%= content %></span>\
-    '),
+        template: _.template(require("text!tpl/LabComponentTpl.html")),
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));

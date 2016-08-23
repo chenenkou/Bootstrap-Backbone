@@ -1,7 +1,7 @@
 /**
  * Navbar
  */
-define('NavbarComponent', [], function(require, exports, module) {
+define('NavbarComponent', ["text!tpl/NavbarComponentTpl.html"], function(require, exports, module) {
     var NavbarComponent = {};
 
     NavbarComponent.Model = Backbone.Model.extend({
@@ -29,54 +29,7 @@ define('NavbarComponent', [], function(require, exports, module) {
             this.listenTo(this.model, 'change', this.render);
         },
 
-        template: _.template('\
-            <nav class="navbar navbar-<% if (navStyle) { %>default<% } else { %>inverse<% } %>">\
-                <div class="container">\
-                    <div class="navbar-header">\
-                        <button data-target=".navbar-collapse" \
-                                data-toggle="collapse" \
-                                class="navbar-toggle collapsed" \
-                                type="button">\
-                            <span class="sr-only">Toggle navigation</span>\
-                            <span class="icon-bar"></span>\
-                            <span class="icon-bar"></span>\
-                            <span class="icon-bar"></span>\
-                        </button>\
-                        <a href="#" class="navbar-brand"><%= logoName %></a>\
-                    </div>\
-                    <div class="navbar-collapse collapse">\
-                        <ul class="nav navbar-nav">\
-                            <% _.each(navList, function (item) { %>\
-                                <% if (!item.subList) { %>\
-                                    <% if (item.index == activeIndex) { %>\
-                                    <li class="active">\
-                                    <% } else { %>\
-                                    <li>\
-                                    <% } %>\
-                                        <a href="<%= item.href %>"><%= item.name %></a>\
-                                    </li>\
-                                <% } else { %>\
-                                    <li class="dropdown"> \
-                                        <a aria-expanded="false" \
-                                            aria-haspopup="true" \
-                                            role="button" data-toggle="dropdown"\
-                                            class="dropdown-toggle"\
-                                            href="#">\
-                                            <%= item.name %> <span class="caret"></span>\
-                                        </a>\
-                                        <ul class="dropdown-menu">\
-                                            <% _.each(item.subList, function (i){ %>\
-                                            <li><a href="<%= i.href %>"><%= i.name %></a></li>\
-                                            <% }) %>\
-                                        </ul>\
-                                    </li>\
-                                <% } %>\
-                            <% }) %>\
-                        </ul>\
-                    </div>\
-                </div>\
-            </nav>\
-        '),
+        template: _.template(require("text!tpl/NavbarComponentTpl.html")),
 
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));

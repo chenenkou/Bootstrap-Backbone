@@ -199,9 +199,14 @@
     // seajs 的简单配置
     seajs.config({
         preload: ['http://cdn.bootcss.com/seajs/1.3.1/plugin-text.js'],
-        base: "/js/component/"
+        base: "/js/component/",
+        map: [[/^(.*\.(?:css|js|html))(.*)$/i, '$1?v=20160823']]  //map,批量更新时间戳
+    });
+
+    seajs.use(["./js/index"], function(i) {
+        console.log('Project Init');
     });
 </script>
-<script src="js/index.js"></script>
+
 </body>
 </html>

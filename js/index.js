@@ -147,4 +147,4 @@ define('index', [
 
 });
 
-seajs.use("index");
+//seajs.use("index");
